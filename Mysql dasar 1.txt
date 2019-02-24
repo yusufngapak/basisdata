@@ -1,0 +1,178 @@
+
+// Perintah menampilkan database 
+
+SHOW DATABASES;
+==============================================
+MariaDB [latihan]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| kampus             |
+| latihan            |
+| latihan03          |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| sewa_mobil         |
+| test               |
+| tugas              |
++--------------------+
+10 rows in set (0.16 sec)
+
+
+
+
+
+// Perintah membuat tabel tapi pastikan database nya aktif 
+
+CREATE TABLE mahasiswa ( nama VARCHAR(30), kelas INT(20));
+============================================================
+
+
+MariaDB [latihan]> create table mahasiswa ( nama varchar(20), kelas int(30));
+Query OK, 0 rows affected (0.16 sec)
+
+
+
+
+
+// Perintah untuk mengecek tabel yang sudah di buat
+
+DESCRIBE mahasiswa;
+Atau 
+DESC mahasiswa;
+=============================================================
+
+
+MariaDB [latihan]> desc mahasiswa;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| nama  | varchar(20) | YES  |     | NULL    |       |
+| kelas | int(30)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+
+ 
+// Perintah ALTER Menambahkan field
+
+ALTER TABLE mahasiswa ADD COLUMN id INT (15) FIRST;
+===============================================================
+
+MariaDB [latihan]> alter table mahasiswa add column id int(10) first;
+Query OK, 0 rows affected (0.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan]> desc mahasiswa;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(10)     | YES  |     | NULL    |       |
+| nama  | varchar(20) | YES  |     | NULL    |       |
+| kelas | int(30)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.04 sec)
+
+
+
+
+// Perintah Mengubah nama field
+
+ALTER TABLE mahasiswa CHANGE nama nama_siswa VARCHAR(35);
+===============================================================
+
+MariaDB [latihan]> alter table mahasiswa change nama nama_mahasiswa varchar(20);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan]> desc mahasiswa;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int(10)     | YES  |     | NULL    |       |
+| nama_mahasiswa | varchar(20) | YES  |     | NULL    |       |
+| kelas          | int(30)     | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.07 sec)
+
+
+
+
+
+// Perintah ALTER Mengubah tipe data
+
+ALTER TABLE mahasiswa MODIFY kelas VARCHAR(20);
+=================================================================
+
+MariaDB [latihan]> alter table mahasiswa modify kelas varchar(20);
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan]> desc mahasiswa;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int(10)     | YES  |     | NULL    |       |
+| nama_mahasiswa | varchar(20) | YES  |     | NULL    |       |
+| kelas          | varchar(20) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.04 sec)
+
+
+
+
+
+// Perintah ALTER Menghapus field
+
+ALTER TABLE mahasiswa DROP kelas;
+==================================================================
+
+MariaDB [latihan]> alter table mahasiswa drop kelas;
+Query OK, 0 rows affected (0.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan]> desc mahasiswa;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int(10)     | YES  |     | NULL    |       |
+| nama_mahasiswa | varchar(20) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+2 rows in set (0.03 sec)
+
+
+
+// Perintah ALTER Menambahkan index atau key
+
+ALTER TABLE mahasiswa ADD PRIMARY KEY (id);
+=============================================================
+
+MariaDB [latihan]> desc mahasiswa;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int(10)     | NO   | PRI | NULL    |       |
+| nama_mahasiswa | varchar(20) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+2 rows in set (0.03 sec)
+
+
+// Perintah ALTER Menghapus index atau key
+
+ALTER TABLE mahasiswa DROP PRIMARY KEY ;
+==============================================================
+
+MariaDB [latihan]> alter table mahasiswa drop primary key;
+Query OK, 0 rows affected (0.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan]> desc mahasiswa;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int(10)     | NO   |     | NULL    |       |
+| nama_mahasiswa | varchar(20) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+2 rows in set (0.07 sec)

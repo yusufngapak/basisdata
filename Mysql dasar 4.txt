@@ -1,0 +1,81 @@
+1. lakukan join terhadap tabel mobil dan sewa hingga menampilkan data seperti berikut 
+
++------+-------+-----------+--------------+------------+----------+----------+
+| kode | jenis | merk      | nofaktursewa | tglsewa    | lamasewa | uangmuka |
++------+-------+-----------+--------------+------------+----------+----------+
+| M001 | SEDAN | BMW E5    | F001         | 2008-12-01 | 2        | 200000   |
+| M003 | BUS   | MERCEDEZ  | F001         | 2008-12-01 | 2        | 200000   |
+| M002 | SEDAN | HONDA CRV | F003         | 2008-12-02 | 1        | 100000   |
+| M004 | BUS   | DYNA      | NULL         | NULL       | NULL     | NULL     |
+| M005 | TRUCK | HYNO ZX   | NULL         | NULL       | NULL     | NULL     |
+| M006 | TRUCK | DYNA X1   | NULL         | NULL       | NULL     | NULL     |
++------+-------+-----------+--------------+------------+----------+----------+
+
+scriptnya adalah :
+
+MariaDB [sewamobil]> select
+    -> mobil.kodemobil as'kode',
+    -> mobil.jenis,
+    -> mobil.merk,
+    -> sewa.nofaktursewa,
+    -> sewa.tglsewa,
+    -> sewa.lamasewa,
+    -> sewa.uangmuka
+    -> from mobil
+    -> left join sewa on mobil.kodemobil = sewa.kodemobil;
+
+
+2. lakukan join tabel sewa, pelanggan dan mobil sampai menampilkan data seperti berikut :
+
++--------------+--------------+------------+-------+-----------+----------+----------+
+| nofaktursewa | nama         | tglsewa    | jenis | merk      | lamasewa | uangmuka |
++--------------+--------------+------------+-------+-----------+----------+----------+
+| F001         | PT FOX RIVER | 2008-12-01 | SEDAN | BMW E5    | 2        | 200000   |
+| F001         | PT FOX RIVER | 2008-12-01 | BUS   | MERCEDEZ  | 2        | 200000   |
+| F003         | CV FOXCON    | 2008-12-02 | SEDAN | HONDA CRV | 1        | 100000   |
++--------------+--------------+------------+-------+-----------+----------+----------+
+
+
+Scriptnya adalah :
+
+MariaDB [sewamobil]> select
+    -> sewa.nofaktursewa,
+    -> pelanggan.nama,
+    -> sewa.tglsewa,
+    -> mobil.jenis,
+    -> mobil.merk,
+    -> sewa.lamasewa,
+    -> sewa.uangmuka
+    -> from sewa
+    -> left join pelanggan on sewa.kodepelanggan = pelanggan.kode
+    -> left join mobil on sewa.kodemobil = mobil.kodemobil;
+
+
+3. lakukan join tabel pelanggan dan tabel sewa hingga menampilkan data seperti berikut :
+
++--------------+----------+--------------+------------+-----------+----------+----------+
+| nama         | kota     | nofaktursewa | tglsewa    | kodemobil | lamasewa | uangmuka |
++--------------+----------+--------------+------------+-----------+----------+----------+
+| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M001      | 2        | 200000   |
+| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M003      | 2        | 200000   |
+| CV FOXCON    | JAKARTA  | F003         | 2008-12-02 | M002      | 1        | 100000   |
+| PT FARMACON  | LAMPUNG  | NULL         | NULL       | NULL      | NULL     | NULL     |
++--------------+----------+--------------+------------+-----------+----------+----------+
+ 
+ scriptnya adalah :
+
+ MariaDB [sewamobil]> select
+    -> pelanggan.nama,
+    -> pelanggan.kota,
+    -> sewa.nofaktursewa,
+    -> sewa.tglsewa,
+    -> sewa.kodemobil,
+    -> sewa.lamasewa,
+    -> sewa.uangmuka
+    -> from pelanggan
+    -> left join sewa on pelanggan.kode = sewa.kodepelanggan;
+
+Kesimpulan 
+
+Adapun kesimpulan yag dapat saya rangkaikan yaitu dalam mempelajari database atau basis data seperti yang ada di atas 
+kita harus mengetahui atau mengerti dasar- dasar perintah DML atau manipulasi data seperti tutorial di atas

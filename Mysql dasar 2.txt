@@ -1,0 +1,154 @@
+memasukan data dengan perintah INSERT INTO, tapi saya sudah membuat data dalam file sql 
+dan menngunakan pacth to file untuk memanggilnya
+
+ \. patch_to_file\file_name.sql
+=======================================================================
+
+MariaDB [latihan]> \. E:\basis_data\data_mahasiswa.sql
+Query OK, 5 rows affected, 4 warnings (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 4
+
+MariaDB [latihan]> select * from mahasiswa;
++----------+---------------+--------------+----------+----------+-------+---------------+---------------+------------+
+| nim      | nama          | alamat_jalan | kota     | kode_pos | no_hp | jenis_kelamin | tanggal_lahir | kode_dosen |
++----------+---------------+--------------+----------+----------+-------+---------------+---------------+------------+
+| 11223344 | Ari Santoso   |              | Bekasi   |          |       | Laki-laki     | 1998-10-12    |            |
+| 11223345 | Ario Talib    |              | Cikarang |          |       | Laki-laki     | 1999-11-16    |            |
+| 11223346 | Dina Marlina  |              | Karawang |          |       | Perempuan     | 1997-12-01    |            |
+| 11223347 | Lisa Ayu      |              | Bekasi   |          |       | Perempuan     | 1996-10-02    |            |
+| 11223348 | Tiara Wahidah |              | Bekasi   |          |       | Perempuan     | 1980-02-05    |            |
++----------+---------------+--------------+----------+----------+-------+---------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+Ubah data tanggal lahir mahasiswa yang bernama Ari menjadi :  1979-08-31!  
+Tampilkan satu baris / record data yang telah diubah tadi yaitu record dengan  nama Ari saja
+
+select * from mahasiswa where nama='ari santoso';
+==========================================================================================
+
+MariaDB [latihan]> update mahasiswa set tanggal_lahir='1979-08-31' where nama='ari santoso';
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [latihan]> select * from mahasiswa where nama='ari santoso';
++----------+-------------+--------------+--------+----------+-------+---------------+---------------+------------+
+| nim      | nama        | alamat_jalan | kota   | kode_pos | no_hp | jenis_kelamin | tanggal_lahir | kode_dosen |
++----------+-------------+--------------+--------+----------+-------+---------------+---------------+------------+
+| 11223344 | Ari Santoso |              | Bekasi |          |       | Laki-laki     | 1979-08-31    |            |
++----------+-------------+--------------+--------+----------+-------+---------------+---------------+------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+Kemudian Hapus data Mahasiswa yang bernama Dina!  
+
+perintahnya :
+DELETE FROM mahasiswa WHERE mahasiswa where nama='dina marlina';
+================================================================
+
+MariaDB [latihan]> delete from mahasiswa where nama='dina marlina';
+Query OK, 1 row affected (0.09 sec)
+
+MariaDB [latihan]> select * from mahasiswa;
++----------+---------------+--------------+----------+----------+-------+---------------+---------------+------------+
+| nim      | nama          | alamat_jalan | kota     | kode_pos | no_hp | jenis_kelamin | tanggal_lahir | kode_dosen |
++----------+---------------+--------------+----------+----------+-------+---------------+---------------+------------+
+| 11223344 | Ari Santoso   |              | Bekasi   |          |       | Laki-laki     | 1979-08-31    |            |
+| 11223345 | Ario Talib    |              | Cikarang |          |       | Laki-laki     | 1999-11-16    |            |
+| 11223347 | Lisa Ayu      |              | Bekasi   |          |       | Perempuan     | 1996-10-02    |            |
+| 11223348 | Tiara Wahidah |              | Bekasi   |          |       | Perempuan     | 1980-02-05    |            |
++----------+---------------+--------------+----------+----------+-------+---------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+Tampilkan record atau data yang tanggal kelahirannya lebih dari atau sama dengan 1996-1-2!  
+
+SELECT * FROM mahasiswa WHERE tanggal_lahir>='1996-01-02';
+
+================================================================================
+
+MariaDB [latihan]> select * from mahasiswa where tanggal_lahir>='1996-01-02';
++----------+------------+--------------+----------+----------+-------+---------------+---------------+------------+
+| nim      | nama       | alamat_jalan | kota     | kode_pos | no_hp | jenis_kelamin | tanggal_lahir | kode_dosen |
++----------+------------+--------------+----------+----------+-------+---------------+---------------+------------+
+| 11223345 | Ario Talib |              | Cikarang |          |       | Laki-laki     | 1999-11-16    |            |
+| 11223347 | Lisa Ayu   |              | Bekasi   |          |       | Perempuan     | 1996-10-02    |            |
++----------+------------+--------------+----------+----------+-------+---------------+---------------+------------+
+2 rows in set (0.02 sec)
+
+
+
+
+
+
+Tampilkan semua Mahasiswa yang berasal dari Bekasi dan berjenis kelamin perempuan!
+
+SELECT * FROM mahasiswa 
+WHERE kota='bekasi' AND jenis_kelamin='perempuan';
+
+===============================================================================
+
+MariaDB [latihan]> SELECT * FROM mahasiswa
+    -> WHERE kota='bekasi' AND jenis_kelamin='perempuan';
++----------+---------------+--------------+--------+----------+-------+---------------+---------------+------------+
+| nim      | nama          | alamat_jalan | kota   | kode_pos | no_hp | jenis_kelamin | tanggal_lahir | kode_dosen |
++----------+---------------+--------------+--------+----------+-------+---------------+---------------+------------+
+| 11223347 | Lisa Ayu      |              | Bekasi |          |       | Perempuan     | 1996-10-02    |            |
+| 11223348 | Tiara Wahidah |              | Bekasi |          |       | Perempuan     | 1980-02-05    |            |
++----------+---------------+--------------+--------+----------+-------+---------------+---------------+------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+Tampilkan semua Mahasiswa yang berasal dari Bekasi dengan kelamin laki-laki atau Mahasiswa yang berumur lebih dari 22 tahun dengan kelamin wanita!
+
+SELECT * FROM mahasiswa 
+WHERE kota='bekasi' AND jenis_kelamin='laki-laki'
+OR tanggal_lahir NOT BETWEEN '1996-01-01' AND '2019-01-01'
+AND jenis_kelamin ='perempuan';
+
+================================================================
+
+MariaDB [latihan]> SELECT * FROM mahasiswa
+    -> WHERE kota='bekasi' AND jenis_kelamin='laki-laki'
+    -> OR tanggal_lahir NOT BETWEEN '1996-01-01' AND '2019-01-01'
+    -> AND jenis_kelamin ='perempuan';
++----------+---------------+--------------+--------+----------+-------+---------------+---------------+------------+
+| nim      | nama          | alamat_jalan | kota   | kode_pos | no_hp | jenis_kelamin | tanggal_lahir | kode_dosen |
++----------+---------------+--------------+--------+----------+-------+---------------+---------------+------------+
+| 11223344 | Ari Santoso   |              | Bekasi |          |       | Laki-laki     | 1979-08-31    |            |
+| 11223348 | Tiara Wahidah |              | Bekasi |          |       | Perempuan     | 1980-02-05    |            |
++----------+---------------+--------------+--------+----------+-------+---------------+---------------+------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+Tampilkan data nama dan alamat mahasiswa saja dari tabel tersebut
+
+SELECT nama, alamat_jalan FROM mahasiswa;
+
+============================================================
+
++---------------+--------------+
+| nama          | alamat_jalan |
++---------------+--------------+
+| Ari Santoso   |              |
+| Ario Talib    |              |
+| Lisa Ayu      |              |
+| Tiara Wahidah |              |
++---------------+--------------+
+4 rows in set (0.00 sec)
